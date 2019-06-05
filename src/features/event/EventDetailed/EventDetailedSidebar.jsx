@@ -27,7 +27,7 @@ const EventDetailedSidebar = ({ attendees }) => {
                             >
                                 Host
             </Label>
-                            {/* <Item.Image size="tiny" style={{ "display": "table" }} src={attendee.photoURL} /> */}
+                            <Item.Image size="tiny" style={{ "display": "table" }} src={attendee.photoURL} />
                             <Item.Content verticalAlign="middle">
                                 <Item.Header as="h3">
                                     <a>{attendee.name}</a>
