@@ -1,39 +1,61 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Segment, Form, Button } from 'semantic-ui-react';
 
-const emptyEvent = {
-    title: '',
-    date: '',
-    city: '',
-    venue: '',
-    hostedBy: ''
+// const emptyEvent = {
+//     title: '',
+//     date: '',
+//     city: '',
+//     venue: '',
+//     hostedBy: ''
+// }
+
+const mapState = (state, ownProps) => {
+    const eventId = ownProps.match.params.id;
+
+    let event = {
+        title: '',
+        date: '',
+        city: '',
+        venue: '',
+        hostedBy: ''
+    }
+
+    if (eventId && state.events.length > 0) {
+        event = state.events.filter(event => event.id === eventId)[0];
+    }
+
+    return {
+        event
+    }
+
 }
 
 
 class EventForm extends Component {
     state = {
-        event: emptyEvent
+        event: Object.assign({}, this.props.event)
     }
 
-    componentDidMount() {
-        if (this.props.selectedEvent !== null)
-            this.setState({
-                event: this.props.selectedEvent
-            })
-    }
+    // componentDidMount() {
+    //     if (this.props.selectedEvent !== null)
+    //         this.setState({
+    //             event: this.props.selectedEvent
+    //         })
+    // }
 
-    static getDerivedStateFromProps(props, state) {
+    // static getDerivedStateFromProps(props, state) {
 
-        if (props.selectedEvent !== null) {
-            if (props.selectedEvent !== state.event) {
-                return {
-                    event: props.selectedEvent
-                }
-            }
-        }
-        // // Return null if the state hasn't changed
-        return null;
-    }
+    //     if (props.selectedEvent !== null) {
+    //         if (props.selectedEvent !== state.event) {
+    //             return {
+    //                 event: props.selectedEvent
+    //             }
+    //         }
+    //     }
+    //     // // Return null if the state hasn't changed
+    //     return null;
+    // }
 
 
 
@@ -89,4 +111,4 @@ class EventForm extends Component {
     }
 }
 
-export default EventForm;
+export default connect(mapState)(EventForm);
